@@ -4,7 +4,7 @@
 ## 목차
 
 1. [도입부](#도입부)
-2. [Variables](#variables)
+2. [변수](#변수)
 3. [Functions](#functions)
 4. [Objects and Data Structures](#objects-and-data-structures)
 5. [Classes](#classes)
@@ -37,27 +37,27 @@ you shout when reading code](https://www.osnews.com/images/comics/wtfm.jpg)
 개선이 필요한 초안 코드에 대해 자책하지 마세요.
 대신 코드를 두들겨 완성합시다!
 
-## **Variables**
+## **변수**
 
-### Use meaningful and pronounceable variable names
+### 의미 있고 발음 가능한 변수 이름을 사용하라
 
-**Bad:**
+**나쁜 예:**
 
 ```javascript
 const yyyymmdstr = moment().format("YYYY/MM/DD");
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 const currentDate = moment().format("YYYY/MM/DD");
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
-### Use the same vocabulary for the same type of variable
+### 같은 유형의 변수에 동일한 어휘를 사용하라
 
-**Bad:**
+**나쁜 예:**
 
 ```javascript
 getUserInfo();
@@ -65,45 +65,41 @@ getClientData();
 getCustomerRecord();
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 getUser();
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
-### Use searchable names
+### 검색 가능한 이름을 사용하라
 
-We will read more code than we will ever write. It's important that the code we
-do write is readable and searchable. By _not_ naming variables that end up
-being meaningful for understanding our program, we hurt our readers.
-Make your names searchable. Tools like
-[buddy.js](https://github.com/danielstjules/buddy.js) and
-[ESLint](https://github.com/eslint/eslint/blob/660e0918933e6e7fede26bc675a0763a6b357c94/docs/rules/no-magic-numbers.md)
-can help identify unnamed constants.
+우리는 코드를 쓸 때보다 코드를 읽는 경우가 더 많습니다. 우리가 작성하는 코드를 읽고 검색하는 것이 중요한 이유입니다. 
+여러분의 프로그램을 이해하는 데 의미가 있는 변수 이름으로 짓지 않는다면, 여러분의 코드를 읽을 사람들을 힘들게 하는 것이죠. 변수 이름을 지을 때는 검색 가능하게 지으세요.
+[buddy.js](https://github.com/danielstjules/buddy.js)와 [ESLint](https://github.com/eslint/eslint/blob/660e0918933e6e7fede26bc675a0763a6b357c94/docs/rules/no-magic-numbers.md) 같은 도구들이 이름 없는 상수를 식별하는 데 도움이 될 수 있습니다.
 
-**Bad:**
+**나쁜 예:**
 
 ```javascript
-// What the heck is 86400000 for?
+// 86400000이 도대체 어떤 의미일까요? 😡
 setTimeout(blastOff, 86400000);
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
-// Declare them as capitalized named constants.
+// 상수는 대문자로 명명하세요.
 const MILLISECONDS_PER_DAY = 60 * 60 * 24 * 1000; //86400000;
 
 setTimeout(blastOff, MILLISECONDS_PER_DAY);
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
-### Use explanatory variables
+### 이유를 알려주는 변수를 사용하라
 
-**Bad:**
+**나쁜 예:**
 
 ```javascript
 const address = "One Infinite Loop, Cupertino 95014";
@@ -114,7 +110,7 @@ saveCityZipCode(
 );
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 const address = "One Infinite Loop, Cupertino 95014";
@@ -123,13 +119,13 @@ const [_, city, zipCode] = address.match(cityZipCodeRegex) || [];
 saveCityZipCode(city, zipCode);
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
-### Avoid Mental Mapping
+### 머리로 매핑하지 마라
 
-Explicit is better than implicit.
+명시적인 것이 암묵적인 것보다 낫습니다.
 
-**Bad:**
+**나쁜 예:**
 
 ```javascript
 const locations = ["Austin", "New York", "San Francisco"];
@@ -139,12 +135,12 @@ locations.forEach(l => {
   // ...
   // ...
   // ...
-  // Wait, what is `l` for again?
+  // 잠깐, 'l'이 뭐였더라?
   dispatch(l);
 });
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 const locations = ["Austin", "New York", "San Francisco"];
@@ -158,14 +154,13 @@ locations.forEach(location => {
 });
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
-### Don't add unneeded context
+### 불필요한 맥락을 추가하지 마라
 
-If your class/object name tells you something, don't repeat that in your
-variable name.
+여러분의 클래스나 객체가 무언가를 말해주고 있다면, 변수 이름에서 불필요하게 또 말해주지 않아도 됩니다.
 
-**Bad:**
+**나쁜 예:**
 
 ```javascript
 const Car = {
@@ -179,7 +174,7 @@ function paintCar(car, color) {
 }
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 const Car = {
@@ -193,16 +188,15 @@ function paintCar(car, color) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
-### Use default arguments instead of short circuiting or conditionals
+### 짧은 코드나 조건문 대신에 인자의 기본값을 사용하라
 
-Default arguments are often cleaner than short circuiting. Be aware that if you
-use them, your function will only provide default values for `undefined`
-arguments. Other "falsy" values such as `''`, `""`, `false`, `null`, `0`, and
-`NaN`, will not be replaced by a default value.
+인자의 기본값을 주는 것이 보통은 코드 한 줄을 추가하는 것보다 더 명료합니다.
+기본값을 설정하게 되면 함수는 `undefined` 값을 가지는 인자의 경우에만 기본값을 제공합니다.
+다른 `''`, `""`, `false`, `null`, `0`, `NaN`와 같이 "falsy"한 값들에는 기본값이 주어지지 않습니다.
 
-**Bad:**
+**니쁜 예:**
 
 ```javascript
 function createMicrobrewery(name) {
@@ -211,7 +205,7 @@ function createMicrobrewery(name) {
 }
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 function createMicrobrewery(name = "Hipster Brew Co.") {
@@ -219,7 +213,7 @@ function createMicrobrewery(name = "Hipster Brew Co.") {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
 ## **Functions**
 
