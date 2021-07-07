@@ -6,7 +6,7 @@
 1. [도입부](#도입부)
 2. [변수](#변수)
 3. [함수](#함수)
-4. [Objects and Data Structures](#objects-and-data-structures)
+4. [객체와 자료구조](#객체와-자료구조)
 5. [Classes](#classes)
 6. [SOLID](#solid)
 7. [Testing](#testing)
@@ -968,23 +968,20 @@ inventoryTracker("apples", req, "www.inventory-awesome.io");
 
 **[⬆ 목차로 이동](#목차)**
 
-## **Objects and Data Structures**
+## 객체와 자료구조
 
-### Use getters and setters
+### getter와 setter를 사용하라
 
-Using getters and setters to access data on objects could be better than simply
-looking for a property on an object. "Why?" you might ask. Well, here's an
-unorganized list of reasons why:
+getter와 setter를 사용하여 객체의 데이터에 접근하는 것은 단순하게 객체에서 프로퍼티를 찾는 것보다 낫습니다.
+"왜?"냐고 물으실 수도 있습니다. 글쎄요, 아래 이유들이 있습니다.
 
-- When you want to do more beyond getting an object property, you don't have
-  to look up and change every accessor in your codebase.
-- Makes adding validation simple when doing a `set`.
-- Encapsulates the internal representation.
-- Easy to add logging and error handling when getting and setting.
-- You can lazy load your object's properties, let's say getting it from a
-  server.
+- 여러분이 객체 프로퍼티를 가져오는 것을 넘어 무언가를 하고 싶을 때 여러분은 코드베이스의 모든 액세스 권한을 찾아 변경할 필요는 없습니다.
+- `set`을 수행할 때 검증 과정을 간단하게 추가할 수 있습니다.
+- 내부 표현을 캡슐화합니다.
+- 로깅과 에러 핸들링이 쉽습니다.
+- 객체의 프로퍼티를 로드하는 것을 느리게 할 수 있습니다.
 
-**Bad:**
+**나쁜 예:**
 
 ```javascript
 function makeBankAccount() {
@@ -1000,7 +997,7 @@ const account = makeBankAccount();
 account.balance = 100;
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 function makeBankAccount() {
@@ -1029,13 +1026,13 @@ const account = makeBankAccount();
 account.setBalance(100);
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
-### Make objects have private members
+### 객체가 프라이빗 멤버를 갖게 해라
 
-This can be accomplished through closures (for ES5 and below).
+이 원칙은 클로저를 통해 수행될 수 있습니다. (ES5 이하)
 
-**Bad:**
+**나쁜 예:**
 
 ```javascript
 const Employee = function(name) {
@@ -1052,7 +1049,7 @@ delete employee.name;
 console.log(`Employee name: ${employee.getName()}`); // Employee name: undefined
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 function makeEmployee(name) {
@@ -1069,7 +1066,7 @@ delete employee.name;
 console.log(`Employee name: ${employee.getName()}`); // Employee name: John Doe
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
 ## **Classes**
 
