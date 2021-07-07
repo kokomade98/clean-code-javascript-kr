@@ -1,8 +1,9 @@
-# clean-code-javascript
+# 클린코드 : 자바스크립트 (한국어 번역)
+> [원문 링크](https://github.com/ryanmcdermott/clean-code-javascript)<br>
+> 한국어 번역 [@sbyeol3](https://github.com/sbyeol3)
+## 목차
 
-## Table of Contents
-
-1. [Introduction](#introduction)
+1. [도입부](#도입부)
 2. [Variables](#variables)
 3. [Functions](#functions)
 4. [Objects and Data Structures](#objects-and-data-structures)
@@ -15,33 +16,26 @@
 11. [Comments](#comments)
 12. [Translation](#translation)
 
-## Introduction
+## 도입부
 
 ![Humorous image of software quality estimation as a count of how many expletives
 you shout when reading code](https://www.osnews.com/images/comics/wtfm.jpg)
 
-Software engineering principles, from Robert C. Martin's book
-[_Clean Code_](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882),
-adapted for JavaScript. This is not a style guide. It's a guide to producing
-[readable, reusable, and refactorable](https://github.com/ryanmcdermott/3rs-of-software-architecture) software in JavaScript.
+소프트웨어 엔지니어링 원리에 대해 로버트 C. 마틴이 저술한 [클린코드](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882)를 JavaScript에 적용시킨 것입니다.
+이 글은 스타일 가이드가 아니라 JavaScript로 가독성 있고, 재사용 가능하며, 리팩토링 가능한 소프트웨어를 개발하는 것에 대한 가이드입니다.
 
-Not every principle herein has to be strictly followed, and even fewer will be
-universally agreed upon. These are guidelines and nothing more, but they are
-ones codified over many years of collective experience by the authors of
-_Clean Code_.
+이 글에 나와 있는 원칙을 모두 엄격하게 준수해야 하는 것은 아니며, 더 적은 수의 원칙들이 보편적으로 합의될 것입니다.
+이 글은 지침서 그 이상은 아니지만 _클린 코드_ 저자들의 다년간의 집단적인 경험에 걸쳐 성문화된 것입니다.
 
-Our craft of software engineering is just a bit over 50 years old, and we are
-still learning a lot. When software architecture is as old as architecture
-itself, maybe then we will have harder rules to follow. For now, let these
-guidelines serve as a touchstone by which to assess the quality of the
-JavaScript code that you and your team produce.
+우리의 소프트웨어 공학 기술은 이제 막 50년이 조금 넘었을 뿐이고, 우리는 여전히 많은 것들을 배우고 있습니다.
+소프트웨어 아키텍처가 아키텍처 자제만큼 오래된 경우 아마도 더 까다로운 규칙을 따라야 할 수도 있습니다.
+지금은 이런 지침들이 여러분과 여러분의 팀이 만드는 JavaScript 코드의 퀄리티를 평가하는 시금석이 될 것입니다.
 
-One more thing: knowing these won't immediately make you a better software
-developer, and working with them for many years doesn't mean you won't make
-mistakes. Every piece of code starts as a first draft, like wet clay getting
-shaped into its final form. Finally, we chisel away the imperfections when
-we review it with our peers. Don't beat yourself up for first drafts that need
-improvement. Beat up the code instead!
+**한 가지 더!** : 이 글을 읽는다고 바로 더 나은 소프트웨어 개발자가 되는 것은 아니며, 오랜 기간 팀으로 일을 했다고 해서 여러분이 실수하지 않는다는 것을 의미하지 않습니다.
+젖은 점토가 점차 최종적인 형태로 변해가는 것과 같이 모든 코드 조각들은 초안으로 시작합니다.
+마지막으로, 우리는 동료들과 함께 코드를 검토할 때 결함들을 제거할 수 있죠.
+개선이 필요한 초안 코드에 대해 자책하지 마세요.
+대신 코드를 두들겨 완성합시다!
 
 ## **Variables**
 
