@@ -7,7 +7,7 @@
 2. [변수](#변수)
 3. [함수](#함수)
 4. [객체와 자료구조](#객체와-자료구조)
-5. [Classes](#classes)
+5. [클래스](#클래스)
 6. [SOLID](#solid)
 7. [Testing](#testing)
 8. [Concurrency](#concurrency)
@@ -1068,16 +1068,15 @@ console.log(`Employee name: ${employee.getName()}`); // Employee name: John Doe
 
 **[⬆ 목차로 이동](#목차)**
 
-## **Classes**
+## 클래스
 
-### Prefer ES2015/ES6 classes over ES5 plain functions
+### ES2015/ES6 클래스보다 ES5 일반 함수를 선호하라
 
-It's very difficult to get readable class inheritance, construction, and method
-definitions for classical ES5 classes. If you need inheritance (and be aware
-that you might not), then prefer ES2015/ES6 classes. However, prefer small functions over
-classes until you find yourself needing larger and more complex objects.
+고전적인 ES5 클래스의 읽기 가능한 클래스 상속, 구성, 메서드 정의를 얻는 것은 어렵습니다.
+상속이 필요하다면 ES2015/ES6의 클래스를 사용하세요.
+그러나 더 크고 복잡한 객체가 필요할 때까지 클래스 보다는 작은 함수를 선호하는 것이 좋습니다.
 
-**Bad:**
+**나쁜 예:**
 
 ```javascript
 const Animal = function(age) {
@@ -1117,7 +1116,7 @@ Human.prototype.constructor = Human;
 Human.prototype.speak = function speak() {};
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 class Animal {
@@ -1153,17 +1152,16 @@ class Human extends Mammal {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
-### Use method chaining
+### 메서드 체이닝을 사용하라
 
-This pattern is very useful in JavaScript and you see it in many libraries such
-as jQuery and Lodash. It allows your code to be expressive, and less verbose.
-For that reason, I say, use method chaining and take a look at how clean your code
-will be. In your class functions, simply return `this` at the end of every function,
-and you can chain further class methods onto it.
+이 패턴은 자바스크립트에서 아주 유용하며 jQuery나 Loadsh와 같은 다른 많은 라이브러리에서도 보입니다.
+메서드 체이닝은 코드의 표현을 더 풍부하게 해주고 장황함을 줄입니다.
+이러한 이유로 메서드 체이닝을 사용하고 얼마나 코드가 깔끔해지는지 살펴보라고 합니다.
+여러분의 클래스 함수에서, 모든 함수의 끝에서 단순히 `this`를 반환하고 더 많은 클래스 메서드를 연결할 수 있습니다.
 
-**Bad:**
+**나쁜 예:**
 
 ```javascript
 class Car {
@@ -1195,7 +1193,7 @@ car.setColor("pink");
 car.save();
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 class Car {
@@ -1233,28 +1231,23 @@ class Car {
 const car = new Car("Ford", "F-150", "red").setColor("pink").save();
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
-### Prefer composition over inheritance
+### 상속보다 구성을 선호하라
 
-As stated famously in [_Design Patterns_](https://en.wikipedia.org/wiki/Design_Patterns) by the Gang of Four,
-you should prefer composition over inheritance where you can. There are lots of
-good reasons to use inheritance and lots of good reasons to use composition.
-The main point for this maxim is that if your mind instinctively goes for
-inheritance, try to think if composition could model your problem better. In some
-cases it can.
 
-You might be wondering then, "when should I use inheritance?" It
-depends on your problem at hand, but this is a decent list of when inheritance
-makes more sense than composition:
+The Gang of Four가 저술한 [_디자인 패턴_](https://en.wikipedia.org/wiki/Design_Patterns)에서 잘 알려진 바와 같이 여러분은 가능한 상속보다는 구성을 더 선호해야 합니다.
+상속을 사용하는 좋은 이유들이 있고 구성을 사용해야 하는 더 좋은 이유들이 있습니다.
+이 격언의 핵심은 여러분이 본능적으로 상속을 원한다면 구성이 여러분의 문제를 더 잘 모델링할 수도 있다고 생각하라는 것입니다. 어떤 경우에는 그렇습니다.
 
-1. Your inheritance represents an "is-a" relationship and not a "has-a"
-   relationship (Human->Animal vs. User->UserDetails).
-2. You can reuse code from the base classes (Humans can move like all animals).
-3. You want to make global changes to derived classes by changing a base class.
-   (Change the caloric expenditure of all animals when they move).
+여러분은 "상속을 언제 사용해야 하나요?"라는 궁금증이 생길 수 있습니다.
+이것은 어떤 문제이냐에 따라 다르지만 아래 목록은 구성보다 상속이 더 타당한 때를 보여주는 경우입니다.
 
-**Bad:**
+1. 상속이 "has-a"가 아닌 "is-a" 관계를 보여주는 경우 (사람->동물 vs. 사용자->사용자 상세).
+2. 베이스 클래스로부터 코드를 재사용하는 경우 (사람은 다른 동물들처럼 움직일 수 있음).
+3. 베이스 클래스를 변경하여 파생된 클래스를 전역적으로 변경하려는 경우 (모든 동물은 움직일 때 칼로리 소비량이 바뀜).
+
+**나쁜 예:**
 
 ```javascript
 class Employee {
@@ -1266,7 +1259,8 @@ class Employee {
   // ...
 }
 
-// Bad because Employees "have" tax data. EmployeeTaxData is not a type of Employee
+// Employee는 세금 데이터를 "가지기 때문에" 좋지 않습니다.
+// EmployeeTaxData는 Employee의 타입이 아닙니다.
 class EmployeeTaxData extends Employee {
   constructor(ssn, salary) {
     super();
@@ -1278,7 +1272,7 @@ class EmployeeTaxData extends Employee {
 }
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 class EmployeeTaxData {
@@ -1303,7 +1297,7 @@ class Employee {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
 ## **SOLID**
 
