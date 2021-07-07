@@ -5,7 +5,7 @@
 
 1. [도입부](#도입부)
 2. [변수](#변수)
-3. [Functions](#functions)
+3. [함수](#함수)
 4. [Objects and Data Structures](#objects-and-data-structures)
 5. [Classes](#classes)
 6. [SOLID](#solid)
@@ -215,39 +215,28 @@ function createMicrobrewery(name = "Hipster Brew Co.") {
 
 **[⬆ 목차로 이동](#목차)**
 
-## **Functions**
+## **함수**
 
-### Function arguments (2 or fewer ideally)
+### 함수의 인자는 2개 이하인 것이 이상적이다
 
-Limiting the amount of function parameters is incredibly important because it
-makes testing your function easier. Having more than three leads to a
-combinatorial explosion where you have to test tons of different cases with
-each separate argument.
+함수 파라미터의 개수를 제한하는 것은 매우 중요합니다. 여러분의 함수를 테스트하는 것이 쉬워지기 때문이죠.
+3개 이상의 파라미터를 가지는 것은 파라미터 조합 간의 폭발로 이어집니다. 조합이 많아질 수록 각각의 경우에 대해 테스트해야 할 것이 많아집니다.
 
-One or two arguments is the ideal case, and three should be avoided if possible.
-Anything more than that should be consolidated. Usually, if you have
-more than two arguments then your function is trying to do too much. In cases
-where it's not, most of the time a higher-level object will suffice as an
-argument.
+1개 또는 2개의 인자를 갖는 것이 이상적이며, 3개는 가능한 피하는 것이 좋습니다.
+3개보다 많은 경우는 인자를 합치는 것이 좋습니다.
+일반적으로 인수를 3개 이상 갖는 함수라면 너무 많은 일을 하는 함수일 것입니다.
+그렇지 않은 경우에는 대부분 상위 수준의 객체로 충분합니다.
 
-Since JavaScript allows you to make objects on the fly, without a lot of class
-boilerplate, you can use an object if you are finding yourself needing a
-lot of arguments.
+자바스크립트를 사용하면 많은 클래스 없이도 바로 객체를 만들 수 있으므로, 많은 인수가 필요할 때는 객체를 사용할 수 있습니다.
 
-To make it obvious what properties the function expects, you can use the ES2015/ES6
-destructuring syntax. This has a few advantages:
+함수가 기대하는 프로퍼티가 무엇인지 명시하기 위해 여러분은 ES2015/ES6의 비구조화 할당 문법을 사용할 수 있습니다. 이것은 몇 가지 장점이 있습니다:
 
-1. When someone looks at the function signature, it's immediately clear what
-   properties are being used.
-2. It can be used to simulate named parameters.
-3. Destructuring also clones the specified primitive values of the argument
-   object passed into the function. This can help prevent side effects. Note:
-   objects and arrays that are destructured from the argument object are NOT
-   cloned.
-4. Linters can warn you about unused properties, which would be impossible
-   without destructuring.
+1. 누군가가 함수를 봤을 때 그 함수에 어떤 속성이 사용되는지 바로 알 수 있습니다.
+2. 명명된 파라미터를 시뮬레이션 하는 데 사용할 수 있습니다.
+3. 비구조화는 또한 함수에 전달되는 인수 객체의 원시값들도 복제합니다. 이것은 사이드 이펙트를 방지하는 데 도움이 됩니다. (참고 📝 인수 객체에서 비구조화된 객체나 배열들은 **복제되지 않습니다**)
+4. Linter는 여러분이 사용하지 않는 프로퍼티에 대해 경고해줄 수 있습니다. 비구조화한 것이 아니라면 불가능하죠.
 
-**Bad:**
+**나쁜 예:**
 
 ```javascript
 function createMenu(title, body, buttonText, cancellable) {
@@ -258,7 +247,7 @@ createMenu("Foo", "Bar", "Baz", true);
 
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 function createMenu({ title, body, buttonText, cancellable }) {
@@ -273,17 +262,16 @@ createMenu({
 });
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
-### Functions should do one thing
+### 함수는 한 가지 일을 해야 한다
 
-This is by far the most important rule in software engineering. When functions
-do more than one thing, they are harder to compose, test, and reason about.
-When you can isolate a function to just one action, it can be refactored
-easily and your code will read much cleaner. If you take nothing else away from
-this guide other than this, you'll be ahead of many developers.
+이 룰은 소프트웨어 공학에서 가장 중요합니다.
+함수가 한 가지 일보다 더 많은 일을 할 때, 힘수를 구성하고 테스트하고 추론하는 것이 더 어려워집니다.
+여러분이 함수가 한 가지 일을 하도록 분리시킬 때 그 함수는 리팩토링 하기가 쉬워지고 여러분의 코드도 더 명료해질 것입니다.
+다른 것들보다 이 지침만을 잘 따른다면 여러분은 많은 개발자를 앞설 수 있습니다.
 
-**Bad:**
+**나쁜 예:**
 
 ```javascript
 function emailClients(clients) {
@@ -296,7 +284,7 @@ function emailClients(clients) {
 }
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 function emailActiveClients(clients) {
@@ -309,11 +297,11 @@ function isActiveClient(client) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
-### Function names should say what they do
+### 함수의 이름이 하는 일을 말하도록 하라
 
-**Bad:**
+**나쁜 예:**
 
 ```javascript
 function addToDate(date, month) {
@@ -322,11 +310,11 @@ function addToDate(date, month) {
 
 const date = new Date();
 
-// It's hard to tell from the function name what is added
+// 함수 이름만 보면 무엇이 더해지는 지 알기 어렵군요 🥲
 addToDate(date, 1);
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 function addMonthToDate(month, date) {
@@ -337,15 +325,14 @@ const date = new Date();
 addMonthToDate(1, date);
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
-### Functions should only be one level of abstraction
+### 함수는 추상화의 하나의 레벨이어야 한다
 
-When you have more than one level of abstraction your function is usually
-doing too much. Splitting up functions leads to reusability and easier
-testing.
+여러분의 함수가 둘 이상의 추상화를 가질 때, 그 함수는 너무 많은 일을 하고 있는 것입니다.
+함수를 쪼개는 것은 함수의 재사용성을 높여주고 테스트를 용이하게 합니다.
 
-**Bad:**
+**나쁜 예:**
 
 ```javascript
 function parseBetterJSAlternative(code) {
@@ -372,7 +359,7 @@ function parseBetterJSAlternative(code) {
 }
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 function parseBetterJSAlternative(code) {
@@ -409,32 +396,22 @@ function parse(tokens) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
-### Remove duplicate code
+### 중복되는 코드를 제거하라
 
-Do your absolute best to avoid duplicate code. Duplicate code is bad because it
-means that there's more than one place to alter something if you need to change
-some logic.
+중복되는 코드를 작성하지 않도록 최선을 다해야 합니다. 로직을 변경해야 할 때 변경해야 하는 위치가 두 개 이상이 되므로 중복되는 코드는 나쁩니다.
 
-Imagine if you run a restaurant and you keep track of your inventory: all your
-tomatoes, onions, garlic, spices, etc. If you have multiple lists that
-you keep this on, then all have to be updated when you serve a dish with
-tomatoes in them. If you only have one list, there's only one place to update!
+여러분이 식당을 운영하고 있는데 토마토, 양파, 마늘, 향신료 등이 있는 재고를 추적해야 한다고 상상해보세요.
+관리해야 하는 목록이 여러 개 있는 경우라면, 토마토가 들어간 요리를 손님에게 주었다면 여러 목록이 모두 업데이트 되어야 할 것입니다. 재고 목록이 한 개뿐이라면 그 목록 하나만 업데이트하면 되고요!
 
-Oftentimes you have duplicate code because you have two or more slightly
-different things, that share a lot in common, but their differences force you
-to have two or more separate functions that do much of the same things. Removing
-duplicate code means creating an abstraction that can handle this set of
-different things with just one function/module/class.
+종종 여러분은 공통되는 부분이 많지만 두 개 이상의 약간은 다른 부분이 있기에 중복 코드를 갖고 있을 것입니다. 그 차이로 인해 거의 동일한 작업을 수행하는 두 개 이상의 개별적인 함수들이 필요하게 됩니다.
+중복되는 코드를 제거하는 것은 하나의 함수/모듈/클래스 만으로도 이러한 서로 다른 것들을 처리할 수 있는 추상화를 만듦을 의미합니다.
 
-Getting the abstraction right is critical, that's why you should follow the
-SOLID principles laid out in the _Classes_ section. Bad abstractions can be
-worse than duplicate code, so be careful! Having said this, if you can make
-a good abstraction, do it! Don't repeat yourself, otherwise you'll find yourself
-updating multiple places anytime you want to change one thing.
+추상화를 올바르게 하는 것은 매우 중요하기 때문에 여러분은 _클래스_ 장에서 제시되는 SOLID 원칙을 따라야 합니다.
+나쁜 추상화는 중복 코드보다 더 좋지 않으니 주의하세요! 이렇게 말하기는 했지만, 여러분이 추상화를 잘 하신다면 그렇게 하세요! 반복할 수록 여러분은 변경하고 싶은 것이 생길 때마다 여러 곳을 업데이트해야 할 것입니다.
 
-**Bad:**
+**나쁜 예:**
 
 ```javascript
 function showDeveloperList(developers) {
@@ -468,7 +445,7 @@ function showManagerList(managers) {
 }
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 function showEmployeeList(employees) {
@@ -495,11 +472,11 @@ function showEmployeeList(employees) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
-### Set default objects with Object.assign
+### `Object.assign`으로 객체의 기본값을 설정하라
 
-**Bad:**
+**나쁜 예:**
 
 ```javascript
 const menuConfig = {
@@ -520,7 +497,7 @@ function createMenu(config) {
 createMenu(menuConfig);
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 const menuConfig = {
@@ -541,20 +518,22 @@ function createMenu(config) {
     config
   );
   return finalConfig
-  // config now equals: {title: "Order", body: "Bar", buttonText: "Send", cancellable: true}
+  // config는 이제 다음과 같습니다 : {title: "Order", body: "Bar", buttonText: "Send", cancellable: true}
   // ...
 }
 
 createMenu(menuConfig);
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
-### Don't use flags as function parameters
+### 함수의 파라미터로 플래그 변수를 사용하지 마라
 
-Flags tell your user that this function does more than one thing. Functions should do one thing. Split out your functions if they are following different code paths based on a boolean.
+플래그 변수는 이 함수가 둘 이상의 일을 한다는 것을 여러분의 사용자에게 알려줍니다.
+함수들은 한 가지 일을 해야 합니다.
+boolean 값을 기반으로 다른 코드를 따라야 하는 경우 함수를 분할하세요.
 
-**Bad:**
+**나쁜 예:**
 
 ```javascript
 function createFile(name, temp) {
@@ -566,7 +545,7 @@ function createFile(name, temp) {
 }
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 function createFile(name) {
@@ -578,30 +557,26 @@ function createTempFile(name) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
-### Avoid Side Effects (part 1)
+### 사이트 이펙트를 피하라 1
 
-A function produces a side effect if it does anything other than take a value in
-and return another value or values. A side effect could be writing to a file,
-modifying some global variable, or accidentally wiring all your money to a
-stranger.
+함수가 값을 받아 다른 값(들)을 리턴하는 경우 함수는 사이드 이펙트를 만들어 냅니다. 
+사이드 이펙트는 파일에 쓰거나, 어떤 전역 변수를 수정하거나, 어쩌면 실수로 당신의 모든 돈을 낯선 이에게 송금해버리는 것이 될 수도 있죠.
 
-Now, you do need to have side effects in a program on occasion. Like the previous
-example, you might need to write to a file. What you want to do is to
-centralize where you are doing this. Don't have several functions and classes
-that write to a particular file. Have one service that does it. One and only one.
+이제 여러분은 가끔 프로그램에서 사이드 이펙트를 가질 필요가 있습니다.  이전 예시와 같이 여러분은 파일에 write 작업이 필요할 수도 있죠.
+여러분이 하고 있는 것들을 중앙화 하는 것이 좋습니다.
+특정 파일에 쓰는 함수나 클래스를 여러 개 가지지 마세요.
+그것을 하는 단 하나를 가지세요.
 
-The main point is to avoid common pitfalls like sharing state between objects
-without any structure, using mutable data types that can be written to by anything,
-and not centralizing where your side effects occur. If you can do this, you will
-be happier than the vast majority of other programmers.
+핵심은 어떠한 구조 없이 객체들 간에 상태를 공유하거나, 무엇으로든 써질 수 있는 mutable한 데이터 타입을 사용하거나, 사이드 이펙트가 발생하는 곳을 중앙화 하지 않는 일반적인 함정을 피하는 것입니다.
+이런 함정들을 피할 수 있다면 여러분은 대부분의 다른 프로그래머들보다 더 행복해질 겁니다.
 
-**Bad:**
+**나쁜 예:**
 
 ```javascript
-// Global variable referenced by following function.
-// If we had another function that used this name, now it'd be an array and it could break it.
+// 다음 함수에 의해 참조되는 전역 변수
+// name을 사용하는 다른 함수가 있다면, 배열이 되어 깨져버릴지도 몰라요.
 let name = "Ryan McDermott";
 
 function splitIntoFirstAndLastName() {
@@ -613,7 +588,7 @@ splitIntoFirstAndLastName();
 console.log(name); // ['Ryan', 'McDermott'];
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 function splitIntoFirstAndLastName(name) {
@@ -627,47 +602,31 @@ console.log(name); // 'Ryan McDermott';
 console.log(newName); // ['Ryan', 'McDermott'];
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
-### Avoid Side Effects (part 2)
+### 사이드 이펙트를 피하라 2
 
-In JavaScript, some values are unchangeable (immutable) and some are changeable 
-(mutable). Objects and arrays are two kinds of mutable values so it's important 
-to handle them carefully when they're passed as parameters to a function. A 
-JavaScript function can change an object's properties or alter the contents of 
-an array which could easily cause bugs elsewhere.
+자바스크립트에서 어떤 값들은 변경이 불가능(불변, immutable)하고 어떤 값들은 변경할 수 있습니다(가변, mutable).
+객체나 배열은 변경 가능한 값들의 두 종류이기 때문에 이 값들은 함수에 파라미터로 전달할 때 조심히 다룰 필요가 있습니다.
+자바스크립트 함수는 객체의 프로퍼티를 변경하거나 배열의 요소들을 바꿀 수 있기 때문에 다른 곳에서 쉽게 버그를 일으킬 수 있습니다
 
-Suppose there's a function that accepts an array parameter representing a 
-shopping cart. If the function makes a change in that shopping cart array - 
-by adding an item to purchase, for example - then any other function that 
-uses that same `cart` array will be affected by this addition. That may be 
-great, however it could also be bad. Let's imagine a bad situation:
+장바구니를 나타내는 배열 파라미터를 받아들이는 함수가 있다고 가정해보세요. 만약 함수가 구매할 아이템을 추가하는 것과 같이 장바구니 배열에 변경사항을 만든다면 동일한 `장바구니` 배열을 사용하는 다른 함수들도 아이템 추가에 의해 영향을 받게 될 겁니다.
+좋아요, 하지만 안 좋을 수도 있어요. 좋지 않은 상황을 상상해봅시다.
 
-The user clicks the "Purchase" button which calls a `purchase` function that
-spawns a network request and sends the `cart` array to the server. Because
-of a bad network connection, the `purchase` function has to keep retrying the
-request. Now, what if in the meantime the user accidentally clicks an "Add to Cart"
-button on an item they don't actually want before the network request begins?
-If that happens and the network request begins, then that purchase function
-will send the accidentally added item because the `cart` array was modified.
+사용자가 "구매" 버튼을 클릭하면 네트워크 요청을 생성하여 서버에 `cart` 배열을 보내는 `purchase` 함수를 호출됩니다.
+네트워크 연결 불량으로 `purchase` 함수는 네트워크 요청을 계속 재시도 합니다.
+그 사이 네트워크 요청이 시작되기 전에 사용자가 실제로 원하지 않는 항목의 "장바구니에 추가" 버튼을 실수로 클릭한 경우에는 어떻게 해야 할까요? 네트워크 요청이 시작되었다면, `purchase` 함수는 `cart` 배열이 변경되었기 때문에 실수로 추가된 아이템을 전송할 겁니다.
 
-A great solution would be for the `addItemToCart` function to always clone the 
-`cart`, edit it, and return the clone. This would ensure that functions that are still
-using the old shopping cart wouldn't be affected by the changes.
+가장 좋은 해결책은 `addItemToCart` 함수가 언제나 `cart`를 복제하여 수정한 후 복제본을 반환하는 것입니다.
+이 방법은 여전히 이전 장바구니 값을 사용하기 때문에 변경 사항의 영향을 받지 않음을 보장합니다.
 
-Two caveats to mention to this approach:
+이 접근 방식에 대한 두 가지 주의사항이 있습니다.
 
-1. There might be cases where you actually want to modify the input object,
-   but when you adopt this programming practice you will find that those cases
-   are pretty rare. Most things can be refactored to have no side effects!
+1. 인풋 객체를 실제로 수정하고 싶을 때도 있지만 실무에서 프로그래밍을 하다보면 실제로는 그런 경우가 드물다는 것을 아실 겁니다. 대부분의 함수들은 사이드 이펙트가 없어 리팩토링이 가능합니다!
 
-2. Cloning big objects can be very expensive in terms of performance. Luckily,
-   this isn't a big issue in practice because there are
-   [great libraries](https://facebook.github.io/immutable-js/) that allow
-   this kind of programming approach to be fast and not as memory intensive as
-   it would be for you to manually clone objects and arrays.
+2. 거대한 객체를 복제하는 것은 퍼포먼스 측면에서 비용이 많이 들 수 있습니다. 다행히도 직접 복제할 때보다 빠르고 메모리를 덜 쓰는 [좋은 라이브러리들](https://facebook.github.io/immutable-js/)이 있기 때문에 실제로는 큰 이슈가 아닙니다.
 
-**Bad:**
+**나쁜 예:**
 
 ```javascript
 const addItemToCart = (cart, item) => {
@@ -675,7 +634,7 @@ const addItemToCart = (cart, item) => {
 };
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 const addItemToCart = (cart, item) => {
@@ -683,21 +642,17 @@ const addItemToCart = (cart, item) => {
 };
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
-### Don't write to global functions
+### 전역 함수에 Write 하지 마라
 
-Polluting globals is a bad practice in JavaScript because you could clash with another
-library and the user of your API would be none-the-wiser until they get an
-exception in production. Let's think about an example: what if you wanted to
-extend JavaScript's native Array method to have a `diff` method that could
-show the difference between two arrays? You could write your new function
-to the `Array.prototype`, but it could clash with another library that tried
-to do the same thing. What if that other library was just using `diff` to find
-the difference between the first and last elements of an array? This is why it
-would be much better to just use ES2015/ES6 classes and simply extend the `Array` global.
+전역 값들을 오염시키는 것은 자바스크립트에서 매우 나쁜 방법입니다. 다른 라이브러리와 충돌할 수 있으며 당신의 API를 사용하는 사용자는 프로덕션에서 예외가 발생할 때까지는 아무것도 알 수 없습니다. 
+한 가지 예시를 생각해볼까요. 
+만약 여러분이 JavaScript의 네이티브 배열 메소드를 확장하여 두 배열의 차이를 보여주는 `diff` 메소드를 사용하고 싶다면 어떻게 해야 할까요? 여러분은 `Array.prototype`에 새로운 함수를 쓸 수 있을 겁니다. 
+이렇게 하면 같은 작업을 하려는 다른 라이브러리와 충돌할 수도 있죠. 다른 라이브러리가 배열의 첫 요소와 마지막 요소의 차이를 찾고자 `diff`를 사용했다면 어떻게 될까요?
+이 예시는 ES2015/ES6 클래스를 사용하여 `Array`를 상속받는 것이 훨씬 더 나은 이유를 보여줍니다.
 
-**Bad:**
+**나쁜 예:**
 
 ```javascript
 Array.prototype.diff = function diff(comparisonArray) {
@@ -706,7 +661,7 @@ Array.prototype.diff = function diff(comparisonArray) {
 };
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 class SuperArray extends Array {
@@ -717,15 +672,15 @@ class SuperArray extends Array {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
-### Favor functional programming over imperative programming
+### 명령형 프로그래밍보다 함수형 프로그래밍을 선호하라
 
-JavaScript isn't a functional language in the way that Haskell is, but it has
-a functional flavor to it. Functional languages can be cleaner and easier to test.
-Favor this style of programming when you can.
+자바스크립트는 Haskell처럼 함수형 언어는 아니지만, 함수형 언어와 같은 면이 있습니다.
+함수형 언어들은 더 명료하고 테스트하기 쉽습니다.
+가능할 때 여러분은 함수형 프로그래밍 스타일을 선호하세요.
 
-**Bad:**
+**나쁜 예:**
 
 ```javascript
 const programmerOutput = [
@@ -754,7 +709,7 @@ for (let i = 0; i < programmerOutput.length; i++) {
 }
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 const programmerOutput = [
@@ -782,11 +737,11 @@ const totalOutput = programmerOutput.reduce(
 );
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
-### Encapsulate conditionals
+### 조건문을 캡슐화하라
 
-**Bad:**
+**나쁜 예:**
 
 ```javascript
 if (fsm.state === "fetching" && isEmpty(listNode)) {
@@ -794,7 +749,7 @@ if (fsm.state === "fetching" && isEmpty(listNode)) {
 }
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 function shouldShowSpinner(fsm, listNode) {
@@ -806,11 +761,11 @@ if (shouldShowSpinner(fsmInstance, listNodeInstance)) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
-### Avoid negative conditionals
+### 부정 조건문을 지양하라
 
-**Bad:**
+**나쁜 예:**
 
 ```javascript
 function isDOMNodeNotPresent(node) {
@@ -822,7 +777,7 @@ if (!isDOMNodeNotPresent(node)) {
 }
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 function isDOMNodePresent(node) {
@@ -834,20 +789,18 @@ if (isDOMNodePresent(node)) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
-### Avoid conditionals
+### 조건문을 피하라
 
-This seems like an impossible task. Upon first hearing this, most people say,
-"how am I supposed to do anything without an `if` statement?" The answer is that
-you can use polymorphism to achieve the same task in many cases. The second
-question is usually, "well that's great but why would I want to do that?" The
-answer is a previous clean code concept we learned: a function should only do
-one thing. When you have classes and functions that have `if` statements, you
-are telling your user that your function does more than one thing. Remember,
-just do one thing.
+이 원칙은 불가능한 일처럼 보일 것입니다. 이 말을 처음 듣자마자 대부분의 사람들은 "`if`문 없이 어떻게 뭘 하겠어요?"라고 말합니다.
+그 답은 많은 경우에서 같은 일을 하기 위해 다형성을 사용할 수 있다는 것입니다.
+두 번째 질문은 보통 "음 좋네요, 근데 왜 제가 그렇게 하고 싶겠어요?" 입니다.
+이전에 우리가 배웠던 클린 코드 개념에 답이 있습니다. 함수는 오직 한 가지 일만 해야 한다는 것이죠.
+여러분이 `if`문을 사용하는 클래스와 함수를 가질 때, 여러분은 그 함수가 두 가지 이상의 일을 한다고 말하는 것입니다.
+오직 한 가지 일을 해야 한다는 것을 기억하세요.
 
-**Bad:**
+**나쁜 예:**
 
 ```javascript
 class Airplane {
@@ -865,7 +818,7 @@ class Airplane {
 }
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 class Airplane {
@@ -894,16 +847,14 @@ class Cessna extends Airplane {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
-### Avoid type-checking (part 1)
+### 타입 체크를 피하라 1
 
-JavaScript is untyped, which means your functions can take any type of argument.
-Sometimes you are bitten by this freedom and it becomes tempting to do
-type-checking in your functions. There are many ways to avoid having to do this.
-The first thing to consider is consistent APIs.
+자바스크립트의 함수는 어떤 타입의 인자든 받을 수 있습니다. 때때로 여러분은 이러한 타입으로부터의 자유에 사로잡혀 함수에서 타입 체크를 하고자 할 것입니다.
+타입 체크를 피할 수 있는 많은 방법이 있습니다. 첫 번째는 일관된 API입니다.
 
-**Bad:**
+**나쁜 예:**
 
 ```javascript
 function travelToTexas(vehicle) {
@@ -915,7 +866,7 @@ function travelToTexas(vehicle) {
 }
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 function travelToTexas(vehicle) {
@@ -923,21 +874,17 @@ function travelToTexas(vehicle) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
-### Avoid type-checking (part 2)
+### 타입 체크를 피하라 2
 
-If you are working with basic primitive values like strings and integers,
-and you can't use polymorphism but you still feel the need to type-check,
-you should consider using TypeScript. It is an excellent alternative to normal
-JavaScript, as it provides you with static typing on top of standard JavaScript
-syntax. The problem with manually type-checking normal JavaScript is that
-doing it well requires so much extra verbiage that the faux "type-safety" you get
-doesn't make up for the lost readability. Keep your JavaScript clean, write
-good tests, and have good code reviews. Otherwise, do all of that but with
-TypeScript (which, like I said, is a great alternative!).
+문자열이나 정수와 같은 원시값으로 작업을 하고 있다면 여러분은 다형성을 사용할 수는 없겠지만 여전히 타입 체크가 필요할 수 있습니다.
+그렇다면 타입스크립트를 고려해보세요. 타입스크립트는 표준 자바스크립트 구문 위에 정적 타이핑 기능을 제공하기 때문에 자바스크립트의 좋은 대안이 됩니다.
+일반 자바스크립트에서 "타입 안정성"을 보충하기 위해서는 장황한 말이 필요해지므로 가독성이 저하됩니다.
+여러분의 자바스크립트 코드를 깨끗하게 유지하고, 좋은 테스트를 작성하고, 좋은 코드 리뷰를 하세요.
+그렇지 않으면 타입스크립트를 사용하세요 (말했듯이 타입스크립트는 좋은 대안입니다!).
 
-**Bad:**
+**나쁜 예:**
 
 ```javascript
 function combine(val1, val2) {
@@ -952,7 +899,7 @@ function combine(val1, val2) {
 }
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 function combine(val1, val2) {
@@ -960,27 +907,25 @@ function combine(val1, val2) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
-### Don't over-optimize
+### 지나치게 최적화하지 마라
 
-Modern browsers do a lot of optimization under-the-hood at runtime. A lot of
-times, if you are optimizing then you are just wasting your time. [There are good
-resources](https://github.com/petkaantonov/bluebird/wiki/Optimization-killers)
-for seeing where optimization is lacking. Target those in the meantime, until
-they are fixed if they can be.
+최신 브라우저는 런타임에 많은 최적화를 수행합니다. 여러분이 작업 시간의 대부분을 최적화 하는 데 사용한다면 시간을 낭비하고 있는 겁니다.
+최적화가 부족한 곳을 볼 수 있는 [좋은 리소스들](https://github.com/petkaantonov/bluebird/wiki/Optimization-killers)이 있습니다.
+문제점들을 수정할 때까지 타겟으로 삼으세요.
 
-**Bad:**
+**나쁜 예:**
 
 ```javascript
-// On old browsers, each iteration with uncached `list.length` would be costly
-// because of `list.length` recomputation. In modern browsers, this is optimized.
+// 오래된 브라우저에서는 `list.length`이 캐싱되지 않아 다시 계산을 해야 하므로 비용이 많이 들 수 있습니다.
+// 최신 브라우저에서는 최적화 됩니다.
 for (let i = 0, len = list.length; i < len; i++) {
   // ...
 }
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 for (let i = 0; i < list.length; i++) {
@@ -988,15 +933,14 @@ for (let i = 0; i < list.length; i++) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
-### Remove dead code
+### 죽은 코드는 제거하라
 
-Dead code is just as bad as duplicate code. There's no reason to keep it in
-your codebase. If it's not being called, get rid of it! It will still be safe
-in your version history if you still need it.
+죽은 코드는 중복된 코드처럼 좋지 않습니다. 여러분의 코드에 죽은 코드를 냅둘 이유가 없습니다.
+더 이상 호출되지 않는다면 지워 버리세요! 만약 그 코드가 다시 필요하더라도 버전 기록에서는 안전하니까요.
 
-**Bad:**
+**나쁜 예:**
 
 ```javascript
 function oldRequestModule(url) {
@@ -1011,7 +955,7 @@ const req = newRequestModule;
 inventoryTracker("apples", req, "www.inventory-awesome.io");
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 function newRequestModule(url) {
@@ -1022,7 +966,7 @@ const req = newRequestModule;
 inventoryTracker("apples", req, "www.inventory-awesome.io");
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
 ## **Objects and Data Structures**
 
