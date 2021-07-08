@@ -10,7 +10,7 @@
 5. [클래스](#클래스)
 6. [SOLID](#solid)
 7. [테스트](#테스트)
-8. [Concurrency](#concurrency)
+8. [동시성](#동시성)
 9. [Error Handling](#error-handling)
 10. [Formatting](#formatting)
 11. [Comments](#comments)
@@ -1798,14 +1798,14 @@ describe("MomentJS", () => {
 
 **[⬆ 목차로 이동](#목차)**
 
-## **Concurrency**
+## 동시성
 
-### Use Promises, not callbacks
+### callback 대신 Promise를 사용하라
 
-Callbacks aren't clean, and they cause excessive amounts of nesting. With ES2015/ES6,
-Promises are a built-in global type. Use them!
+Callback은 깔끔하지 않고, 너무 많은 중첩을 만듭니다.
+ES2015/ES6부터는 Promise가 내장되어 있으니 이걸 사용하세요!
 
-**Bad:**
+**나쁜 예:**
 
 ```javascript
 import { get } from "request";
@@ -1829,7 +1829,7 @@ get(
 );
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 import { get } from "request-promise";
@@ -1847,17 +1847,15 @@ get("https://en.wikipedia.org/wiki/Robert_Cecil_Martin")
   });
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
-### Async/Await are even cleaner than Promises
+### Async/Await은 Promise보다 깔끔하다
 
-Promises are a very clean alternative to callbacks, but ES2017/ES8 brings async and await
-which offer an even cleaner solution. All you need is a function that is prefixed
-in an `async` keyword, and then you can write your logic imperatively without
-a `then` chain of functions. Use this if you can take advantage of ES2017/ES8 features
-today!
+Promise는 callback의 아주 좋은 대안이 되지만 ES2017/ES8에 도입된 async/await은 이보다 더 좋은 해결책이 됩니다.
+함수 앞에 `async` 키워드를 붙이고 함수의 `then` 체인 대신에 여러분의 로직만을 작성하면 됩니다.
+여러분이 ES2017/ES8을 사용할 수 있다면 async/await을 사용하세요!
 
-**Bad:**
+**나쁜 예:**
 
 ```javascript
 import { get } from "request-promise";
@@ -1875,7 +1873,7 @@ get("https://en.wikipedia.org/wiki/Robert_Cecil_Martin")
   });
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 import { get } from "request-promise";
@@ -1896,7 +1894,7 @@ async function getCleanCodeArticle() {
 getCleanCodeArticle()
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
 ## **Error Handling**
 
