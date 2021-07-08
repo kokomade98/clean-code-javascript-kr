@@ -9,7 +9,7 @@
 4. [객체와 자료구조](#객체와-자료구조)
 5. [클래스](#클래스)
 6. [SOLID](#solid)
-7. [Testing](#testing)
+7. [테스트](#테스트)
 8. [Concurrency](#concurrency)
 9. [Error Handling](#error-handling)
 10. [Formatting](#formatting)
@@ -1732,26 +1732,21 @@ inventoryTracker.requestItems();
 
 **[⬆ 목차로 이동](#목차)**
 
-## **Testing**
+## 테스트
 
-Testing is more important than shipping. If you have no tests or an
-inadequate amount, then every time you ship code you won't be sure that you
-didn't break anything. Deciding on what constitutes an adequate amount is up
-to your team, but having 100% coverage (all statements and branches) is how
-you achieve very high confidence and developer peace of mind. This means that
-in addition to having a great testing framework, you also need to use a
-[good coverage tool](https://gotwarlost.github.io/istanbul/).
+테스트는 배포하는 것보다 중요합니다.
+여러분이 테스트를 하지 않거나 충분히 테스트를 하지 않았다면, 버그가 발생하지 않을 거라고 확신할 수 없는 코드가 됩니다.
+테스트 커버리지를 얼마나 할 것인지는 팀마다 다르지만, 100% 커버리지를 갖게 된다면 매우 높은 코드의 신뢰성과 개발자의 내적 평화도 함께 가지게 됩니다.
+이 말은 좋은 테스트 프레임워크와 더불어 [좋은 커버리지 툴]((https://gotwarlost.github.io/istanbul/))을 가지는 것이 필요하다는 것이죠.
 
-There's no excuse to not write tests. There are [plenty of good JS test frameworks](https://jstherightway.org/#testing-tools), so find one that your team prefers.
-When you find one that works for your team, then aim to always write tests
-for every new feature/module you introduce. If your preferred method is
-Test Driven Development (TDD), that is great, but the main point is to just
-make sure you are reaching your coverage goals before launching any feature,
-or refactoring an existing one.
+테스트를 작성하지 않는 것은 변명의 여지가 없습니다. [다양하고 좋은 자바스크립트 테스트 프레임워크들]((https://jstherightway.org/#testing-tools))이 많으니 여러분의 팀에 맞는 프레임워크를 찾아보세요.
+여러분의 팀과 잘 맞는 프레임워크를 골랐다면, 모든 새로운 기능/모듈을 작성할 때 항상 테스트를 작성하는 것을 목표로 하세요.
+여러분의 팀이 테스트 주도 개발 방법론(TDD)을 선호한다면 아주 좋은 선택일 수 있습니다.
+그러나 어떤 기능에 착수하거나 이미 있는 코드를 리팩토링하기 전에 여러분이 정한 커버리지 목표를 달성하는 것이 더 중요합니다.
 
-### Single concept per test
+### 하나의 테스트는 하나의 목표를 가지게 해라
 
-**Bad:**
+**나쁜 예:**
 
 ```javascript
 import assert from "assert";
@@ -1775,7 +1770,7 @@ describe("MomentJS", () => {
 });
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 import assert from "assert";
@@ -1801,7 +1796,7 @@ describe("MomentJS", () => {
 });
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
 ## **Concurrency**
 
