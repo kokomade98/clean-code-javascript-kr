@@ -12,7 +12,7 @@
 7. [테스트](#테스트)
 8. [동시성](#동시성)
 9. [에러 처리](#에러-처리)
-10. [Formatting](#formatting)
+10. [포맷팅](#포맷팅)
 11. [Comments](#comments)
 12. [Translation](#translation)
 
@@ -1968,24 +1968,21 @@ getdata()
 
 **[⬆ 목차로 이동](#목차)**
 
-## **Formatting**
+## 포맷팅
 
-Formatting is subjective. Like many rules herein, there is no hard and fast
-rule that you must follow. The main point is DO NOT ARGUE over formatting.
-There are [tons of tools](https://standardjs.com/rules.html) to automate this.
-Use one! It's a waste of time and money for engineers to argue over formatting.
+포맷팅은 주관적입니다. 어렵지 않고 빠르게 적용할 수 있는 규칙들이 많습니다.
+포맷팅의 중요한 점은 포맷팅에 과하게 신경 쓸 필요가 없다는 겁니다.
+자동으로 해주는 [아주 많은 도구들]((https://standardjs.com/rules.html))이 있으니까 도구를 사용하세요!
+포맷팅에 관해 엔지니어들끼리 논쟁하는 것은 시간과 돈을 아주 낭비하고 있는 거예요.
 
-For things that don't fall under the purview of automatic formatting
-(indentation, tabs vs. spaces, double vs. single quotes, etc.) look here
-for some guidance.
+자동으로 포맷팅해주는 범위(들여쓰기, 탭 vs. 스페이스, 큰 따옴표 vs. 작은 따옴표 등)에 포함되지 않는 것들은 몇 가지 지침을 따르는 것이 좋습니다. 
+### 일관되게 대문자를 사용하라
 
-### Use consistent capitalization
+자바스크립트는 타입이 정해져 있지 않기 때문에 대소문자는 어떤 값이 변수인지, 함수인지와 같은 여러 가지 정보를 제공해줍니다.
+이런 규칙들은 주관적이기 때문에 여러분의 팀이 선택한 규칙을 따라야 합니다.
+어떤 규칙을 따르든 일관되게 작성하는 것이 중요합니다.
 
-JavaScript is untyped, so capitalization tells you a lot about your variables,
-functions, etc. These rules are subjective, so your team can choose whatever
-they want. The point is, no matter what you all choose, just be consistent.
-
-**Bad:**
+**나쁜 예:**
 
 ```javascript
 const DAYS_IN_WEEK = 7;
@@ -2001,7 +1998,7 @@ class animal {}
 class Alpaca {}
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 const DAYS_IN_WEEK = 7;
@@ -2017,15 +2014,15 @@ class Animal {}
 class Alpaca {}
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
-### Function callers and callees should be close
+### 함수를 호출하는 것과 호출되는 것은 가까이 위치시켜라
 
-If a function calls another, keep those functions vertically close in the source
-file. Ideally, keep the caller right above the callee. We tend to read code from
-top-to-bottom, like a newspaper. Because of this, make your code read that way.
+함수가 다른 함수를 호출한다면 코드 파일에서 수직으로 가까이 두어야 합니다.
+이상적으로 호출되는 것이 호출하는 것 바로 위에 있는 것이 가장 좋습니다.
+우리는 코드를 신문 읽듯이 위에서부터 아래로 있기 때문에 여러분은 이를 고려하는 것이 좋습니다.
 
-**Bad:**
+**나쁜 예:**
 
 ```javascript
 class PerformanceReview {
@@ -2065,7 +2062,7 @@ const review = new PerformanceReview(employee);
 review.perfReview();
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 class PerformanceReview {
@@ -2105,7 +2102,7 @@ const review = new PerformanceReview(employee);
 review.perfReview();
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
 ## **Comments**
 
