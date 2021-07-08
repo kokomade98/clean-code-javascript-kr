@@ -11,7 +11,7 @@
 6. [SOLID](#solid)
 7. [테스트](#테스트)
 8. [동시성](#동시성)
-9. [Error Handling](#error-handling)
+9. [에러 처리](#에러-처리)
 10. [Formatting](#formatting)
 11. [Comments](#comments)
 12. [Translation](#translation)
@@ -1896,23 +1896,17 @@ getCleanCodeArticle()
 
 **[⬆ 목차로 이동](#목차)**
 
-## **Error Handling**
+## 에러 처리
 
-Thrown errors are a good thing! They mean the runtime has successfully
-identified when something in your program has gone wrong and it's letting
-you know by stopping function execution on the current stack, killing the
-process (in Node), and notifying you in the console with a stack trace.
+에러를 던진다는 것은 좋은 겁니다!
+프로그램이 무언가 잘못되었을 때 현재 스택에서 함수를 실행하는 것을 중단하고, 해당 프로세스를 종료하고 스택을 추적하여 콘솔에서 알려주는 것은 런타임이 에러를 성공적으로 알아차렸다는 것을 의미합니다.
+### 찾아낸 에러를 무시하지 마라
 
-### Don't ignore caught errors
+찾은 에러를 가만히 두는 것은 에러를 고치거나 대응하는 능력을 주지 않습니다.
+콘솔에 에러를 찍는 것(`console.log`)은 콘솔에 출력된 많은 것들을 잃어버리는 것만큼 더 좋은 방법은 아닙니다.
+특정 코드를 `try/catch`로 둘러싼다는 것은 그 곳에서 에러가 발생할 수도 있다는 것이므로 에러가 발생할 경우에 대한 계획이나 코드 경로를 만들어야 합니다.
 
-Doing nothing with a caught error doesn't give you the ability to ever fix
-or react to said error. Logging the error to the console (`console.log`)
-isn't much better as often times it can get lost in a sea of things printed
-to the console. If you wrap any bit of code in a `try/catch` it means you
-think an error may occur there and therefore you should have a plan,
-or create a code path, for when it occurs.
-
-**Bad:**
+**나쁜 예:**
 
 ```javascript
 try {
@@ -1922,28 +1916,27 @@ try {
 }
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 try {
   functionThatMightThrow();
 } catch (error) {
-  // One option (more noisy than console.log):
+  // 1. console.error을 사용하기 (console.log보다 알기 좋음)
   console.error(error);
-  // Another option:
+  // 2. 사용자에게 알려주기
   notifyUserOfError(error);
-  // Another option:
+  // 3. 서비스 자체에 에러를 알리기
   reportErrorToService(error);
-  // OR do all three!
+  // 그 외 여러 방법이 있습니다
 }
 ```
 
-### Don't ignore rejected promises
+### reject된 Promise를 무시하지 마라
 
-For the same reason you shouldn't ignore caught errors
-from `try/catch`.
+위 `try/catch`에서 설명한 이유와 동일합니다.
 
-**Bad:**
+**나쁜 예:**
 
 ```javascript
 getdata()
@@ -1955,7 +1948,7 @@ getdata()
   });
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 getdata()
@@ -1973,7 +1966,7 @@ getdata()
   });
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
 ## **Formatting**
 
