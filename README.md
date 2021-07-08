@@ -1301,18 +1301,15 @@ class Employee {
 
 ## **SOLID**
 
-### Single Responsibility Principle (SRP)
+### 단일 책임 원칙 (SRP)
 
-As stated in Clean Code, "There should never be more than one reason for a class
-to change". It's tempting to jam-pack a class with a lot of functionality, like
-when you can only take one suitcase on your flight. The issue with this is
-that your class won't be conceptually cohesive and it will give it many reasons
-to change. Minimizing the amount of times you need to change a class is important.
-It's important because if too much functionality is in one class and you modify
-a piece of it, it can be difficult to understand how that will affect other
-dependent modules in your codebase.
+클린 코드에서 명시된 것과 같이 "클래스가 변경되어야 하는 이유가 한 가지보다 더 많으면 안됩니다".
+하나의 클래스를 다양한 기능으로 포장하는 건 매력적입니다. 여러분이 비행기를 탈 때 하나의 캐리어만 가지고 탈 수 있을 때처럼 말이죠.
+그러나 문제는 여러분의 클래스가 개념적으로 응집되지 않고 변경될 많은 이유를 준다는 겁니다.
+클래스를 변경시켜야 하는 시간을 줄이는 것은 중요합니다.
+너무 많은 기능이 하나의 클래스에 있고 그 중의 하나를 수정해야 한다면, 여러분의 코드베이스를 기반으로 하고 있는 다른 모듈에 어떤 영향을 줄지 알기가 어려워지기 때문입니다.
 
-**Bad:**
+**나쁜 예:**
 
 ```javascript
 class UserSettings {
@@ -1332,7 +1329,7 @@ class UserSettings {
 }
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 class UserAuth {
@@ -1359,16 +1356,14 @@ class UserSettings {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
-### Open/Closed Principle (OCP)
+### 개방/폐쇄 원칙 (OCP)
 
-As stated by Bertrand Meyer, "software entities (classes, modules, functions,
-etc.) should be open for extension, but closed for modification." What does that
-mean though? This principle basically states that you should allow users to
-add new functionalities without changing existing code.
+Bertrand Meyer가 말했던 것처럼 "소프트웨어 엔티티(클래스, 모듈, 함수 등)는 확장에 열려 있어야 하고, 변경에 닫혀 있어야" 합니다. 그런데 이게 무슨 뜻일까요?
+이 원칙은 기본적으로 여러분이 사용자에게 이미 존재하는 코드를 변경하지 않고 새로운 기능을 추가하는 건 허용한다는 것을 의미합니다.
 
-**Bad:**
+**나쁜 예:**
 
 ```javascript
 class AjaxAdapter extends Adapter {
@@ -1412,7 +1407,7 @@ function makeHttpCall(url) {
 }
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 class AjaxAdapter extends Adapter {
@@ -1450,24 +1445,19 @@ class HttpRequester {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
-### Liskov Substitution Principle (LSP)
+### 리스코프 치환 원칙 (LSP)
 
-This is a scary term for a very simple concept. It's formally defined as "If S
-is a subtype of T, then objects of type T may be replaced with objects of type S
-(i.e., objects of type S may substitute objects of type T) without altering any
-of the desirable properties of that program (correctness, task performed,
-etc.)." That's an even scarier definition.
+이 원칙은 매우 간단한 개념에 대한 무서운 용어입니다.
+"S가 T의 하위유형이라면, T 타입의 객체가 프로그램의 바람직한 특성들(정확성, 수행된 작업 등)을 변경하지 않고 S 타입의 객체로 대체될 수 있다"는 것으로 정의됩니다.
+훨씬 더 무서운 정의네요.
 
-The best explanation for this is if you have a parent class and a child class,
-then the base class and child class can be used interchangeably without getting
-incorrect results. This might still be confusing, so let's take a look at the
-classic Square-Rectangle example. Mathematically, a square is a rectangle, but
-if you model it using the "is-a" relationship via inheritance, you quickly
-get into trouble.
+이 원칙에 대한 가장 좋은 설명은 여러분이 부모 클래스와 자식 클래스가 있을 때, 이상한 결과를 발생시키지 않으며 두 클래스끼리 상호교환될 수 있다는 것입니다.
+조금 혼란스러울 수도 있지만 고전적인 정사각형-직사각형 예시를 살펴볼까요.
+수학적으로 정사각형은 직사각형이지만, 상속을 통해 여러분이 "is-a" 관계를 모델링했다면 금방 문제에 봉착하게 될 것입니다.
 
-**Bad:**
+**나쁜 예:**
 
 ```javascript
 class Rectangle {
@@ -1513,7 +1503,7 @@ function renderLargeRectangles(rectangles) {
   rectangles.forEach(rectangle => {
     rectangle.setWidth(4);
     rectangle.setHeight(5);
-    const area = rectangle.getArea(); // BAD: Returns 25 for Square. Should be 20.
+    const area = rectangle.getArea(); // 문제: 정사각형은 20이 아닌 25를 리턴함
     rectangle.render(area);
   });
 }
@@ -1522,7 +1512,7 @@ const rectangles = [new Rectangle(), new Rectangle(), new Square()];
 renderLargeRectangles(rectangles);
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 class Shape {
@@ -1569,25 +1559,23 @@ const shapes = [new Rectangle(4, 5), new Rectangle(4, 5), new Square(5)];
 renderLargeShapes(shapes);
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
-### Interface Segregation Principle (ISP)
+### 인터페이스 분리 원칙 (ISP)
 
-JavaScript doesn't have interfaces so this principle doesn't apply as strictly
-as others. However, it's important and relevant even with JavaScript's lack of
-type system.
+자바스크립트는 인터페이스를 갖지 않으므로 다른 언어들처럼 엄격하게 적용되는 원칙은 아닙니다.
+그러나 자바스크립트의 타입 시스템의 부족 때문에 중요하고 관련있는 원칙이기도 합니다.
 
-ISP states that "Clients should not be forced to depend upon interfaces that
-they do not use." Interfaces are implicit contracts in JavaScript because of
-duck typing.
+ISP 원칙은 "클라이언트는 그들이 사용하지 않는 인터페이스에 의존하도록 강제받지 않는다"는 것을 의미합니다.
+인터페이스는 duck 타이핑때문에 자바스크립트에서 암시적인 계약입니다.
 
-A good example to look at that demonstrates this principle in JavaScript is for
-classes that require large settings objects. Not requiring clients to setup
-huge amounts of options is beneficial, because most of the time they won't need
-all of the settings. Making them optional helps prevent having a
-"fat interface".
+> 역 : [duck typing](https://en.wikipedia.org/wiki/Duck_typing)이란 동적 타이핑의 한 종류로, 인터페이스 구현으로 타입을 구분하지 않고 변수와 메소드에 의해 타입이 결정되는 것을 의미합니다.
 
-**Bad:**
+자바스크립트에서 이 원칙을 설명하는 좋은 예시는 클래스가 무수히 많은 세팅 객체가 필요한 경우입니다.
+클라이언트가 매우 많은 옵션을 설정하지 않는 것이 좋은데, 대부분의 경우 모든 설정이 필요한 것은 아니기 때문입니다.
+설정을 선택적으로 하는 것이 "뚱뚱한 인터페이스"를 방지하는 데 도움이 됩니다.
+
+**나쁜 예:**
 
 ```javascript
 class DOMTraverser {
@@ -1613,7 +1601,7 @@ const $ = new DOMTraverser({
 });
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 class DOMTraverser {
@@ -1647,32 +1635,25 @@ const $ = new DOMTraverser({
 });
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
-### Dependency Inversion Principle (DIP)
+### 의존 역전 원칙 (DIP)
 
-This principle states two essential things:
+이 원칙은 두 가지 중요한 사실을 말해줍니다:
 
-1. High-level modules should not depend on low-level modules. Both should
-   depend on abstractions.
-2. Abstractions should not depend upon details. Details should depend on
-   abstractions.
+1. 고수준의 모듈은 저수준의 모듈에 의존적이지 않아야 합니다. 두 모듈은 추상화에 의존적이어야 합니다.
+2. 추상화는 세부사항에 의존적이지 않아야 합니다. 세부사항은 추상화에 의존적이어야 합니다.
 
-This can be hard to understand at first, but if you've worked with AngularJS,
-you've seen an implementation of this principle in the form of Dependency
-Injection (DI). While they are not identical concepts, DIP keeps high-level
-modules from knowing the details of its low-level modules and setting them up.
-It can accomplish this through DI. A huge benefit of this is that it reduces
-the coupling between modules. Coupling is a very bad development pattern because
-it makes your code hard to refactor.
+처음에는 이 원칙을 이해하는 것은 어려울 수 있지만, 여러분이 AngularJS로 작업을 해보셨다면, 의존성 주입(DI)의 형태로 이 원칙을 구현해본 적이 있습니다.
+두 가지가 동일한 개념은 아니지만, DIP 원칙은 고수준 모듈이 저수준 모듈의 세부사항을 알고 이를 설정하는 것을 방지합니다.
+이 원칙의 가장 큰 장점은 두 모듈 간의 의존성을 낮춰준다는 것이죠.
+모듈 간의 의존성이 높을수록 리팩토링을 어렵게 만들기 때문에 이는 아주 나쁜 개발 패턴입니다.
 
-As stated previously, JavaScript doesn't have interfaces so the abstractions
-that are depended upon are implicit contracts. That is to say, the methods
-and properties that an object/class exposes to another object/class. In the
-example below, the implicit contract is that any Request module for an
-`InventoryTracker` will have a `requestItems` method.
+이전에 말했듯이 자바스크립트는 인터페이스가 없으므로 추상화에 의존하는 것은 암묵적인 약속입니다.
+즉, 다른 객체나 클래스에 노출되는 메소드와 프로퍼티가 암묵적인 약속이 되는 것이죠.
+아래 예제에서 암묵적인 약속은 `InventoryTracker`에 대한 모든 요청 모듈이 `requestItems` 메소드를 가진다는 것입니다.
 
-**Bad:**
+**나쁜 예:**
 
 ```javascript
 class InventoryRequester {
@@ -1689,8 +1670,8 @@ class InventoryTracker {
   constructor(items) {
     this.items = items;
 
-    // BAD: We have created a dependency on a specific request implementation.
-    // We should just have requestItems depend on a request method: `request`
+    // 🙅 : 특정 요청 구현에 대한 의존성을 만들었으므로 좋지 않아요.
+    // requestItems이 request 메소드에 의해 달라지도록 해야 합니다.
     this.requester = new InventoryRequester();
   }
 
@@ -1705,7 +1686,7 @@ const inventoryTracker = new InventoryTracker(["apples", "bananas"]);
 inventoryTracker.requestItems();
 ```
 
-**Good:**
+**좋은 예:**
 
 ```javascript
 class InventoryTracker {
@@ -1741,8 +1722,7 @@ class InventoryRequesterV2 {
   }
 }
 
-// By constructing our dependencies externally and injecting them, we can easily
-// substitute our request module for a fancy new one that uses WebSockets.
+// 의존성을 외부에서 만들어 주입함으로써, 요청 모듈을 더 좋은 웹소켓 모듈로 쉽게 바꿀 수 있어요.
 const inventoryTracker = new InventoryTracker(
   ["apples", "bananas"],
   new InventoryRequesterV2()
@@ -1750,7 +1730,7 @@ const inventoryTracker = new InventoryTracker(
 inventoryTracker.requestItems();
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 목차로 이동](#목차)**
 
 ## **Testing**
 
